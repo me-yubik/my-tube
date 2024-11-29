@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube-Inspired Homepage</title>
     <style>
-        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -18,7 +17,6 @@
             color: inherit;
         }
         
-        /* Header Styles */
         header {
             display: flex;
             justify-content: space-between;
@@ -59,7 +57,6 @@
             gap: 15px;
         }
         
-        /* Main Content Styles */
         .main-content {
             padding: 20px;
             display: flex;
@@ -98,34 +95,47 @@
             margin-top: 4px;
         }
         
-        /* Footer Styles */
         footer {
             padding: 20px;
             text-align: center;
             background-color: #f1f1f1;
             font-size: 14px;
             color: #555;
+            
+            #user-name {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <div class="logo">MyTube</div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
-        </div>
-        <div class="header-icons">
-            <a href="#">Login</a>
-            <a href="#">Notifications</a>
-        </div>
-    </header>
+<?php
+session_start();
+?>
 
-    <!-- Main Content Section -->
+<header>
+    <div class="logo">MyTube</div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+    </div>
+    <div class="header-icons">
+        <?php if (isset($_SESSION['username'])): ?>
+            <span id="user-name" onclick="showLogoutDialog()">
+                <?= htmlspecialchars($_SESSION['username']); ?>
+            </span>
+        <?php else: ?>
+            <a href="signin.php">Login</a>
+        <?php endif; ?>
+        <a href="#">Notifications</a>
+    </div>
+</header>
+
     <div class="main-content">
-        <!-- Video Card Template -->
         <div class="video-card">
             <div class="thumbnail"></div>
             <div class="video-info">
@@ -134,7 +144,6 @@
             </div>
         </div>
 
-        <!-- Add more video cards as needed -->
         <div class="video-card">
             <div class="thumbnail"></div>
             <div class="video-info">
@@ -143,13 +152,19 @@
             </div>
         </div>
 
-        <!-- Add more video cards in a similar way for a grid layout -->
     </div>
 
-    <!-- Footer Section -->
     <footer>
         © 2024 MyTube. All rights reserved.
     </footer>
 
 </body>
+<script>
+    function showLogoutDialog() {
+        if (confirm("Do you want to log out?")) {
+            window.location.href = "logout.php"; // Redirect to logout logic
+        }
+    }
+</script>
+
 </html>

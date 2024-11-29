@@ -15,7 +15,7 @@ $email = $_POST["email"];
 $password = $_POST["password"];
 
 
-$sql = "SELECT * FROM youtube WHERE Email = '$email'";
+$sql = "SELECT * FROM youtube WHERE Email = '$email' ";
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
